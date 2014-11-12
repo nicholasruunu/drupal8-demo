@@ -1,8 +1,15 @@
 services:
   demo.controller:
-    class: 'Drupal\demo\Controller\DemoController'
+    class: Drupal\demo\Controller\DemoController
     arguments: ['@demo.user_repository']
 
   demo.user_repository:
-    class: 'Drupal\demo\User\Repository\DrupalUserRepository'
-    arguments: ['@entity.query']
+    class: Drupal\demo\User\Repository\DrupalUserRepository
+    arguments: ['@user.entity.manager']
+
+  user.entity.manager:
+    class: Drupal\user\UserStorage
+    factory_service: entity.manager
+    factory_method: getStorage
+    arguments:
+      - 'user'
