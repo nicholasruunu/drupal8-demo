@@ -6,6 +6,10 @@
 
 namespace Drupal\demo\Controller;
 
+use Drupal\demo\User\Repository\UserRepository;
+use Drupal\demo\User\User;
+use Drupal\demo\ValueObject\Name;
+
 class DemoController
 {
     /**
@@ -13,22 +17,37 @@ class DemoController
      */
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository) {
+    public function __construct(UserRepository $userRepository)
+    {
         $this->userRepository = $userRepository;
     }
 
-    public function create(ContainerInterface $container) {
-        return new static($container->get('demo.drupal_user_repository'));
+    /**
+     * Prints hello user message
+     */
+    public function helloUser($userId)
+    {
+        $user = $this->userRepository->getFromId($userId);
+
+        return array(
+            '#markup' => "Hello {$user->getUsername()}! This is a demo page.",
+        );
     }
 
     /**
-     * Generates example page
+     * Prints hello message to all users
      */
-    public function demo()
+    public function helloUsers()
     {
-        var_dump($this->userRepository);exit;
+        $users = $this->userRepository->getAll();
+        $userNames = array();
+
+        foreach ($users as $user) {
+            $userNames[] = $user->getUsername();
+        }
+
         return array(
-            '#markup' => 'Hello Drupalists! This is a demo page.',
+            '#markup' => 'Hello ' . implode(', ', $userNames) . '! This is a demo page.',
         );
     }
 } 

@@ -1,7 +1,16 @@
-demo.demo:
-  path: '/demo'
+demo.hello.users:
+  path: '/hello'
   defaults:
-    _content: 'demo.controller:demo'
-    _title: 'Demo'
+    _content: 'demo.controller:helloUsers'
+    _title: 'Hello users page'
   requirements:
     _permission: 'access content'
+
+demo.hello.user:
+  path: '/hello/{userId}'
+  defaults:
+    _content: 'demo.controller:helloUser'
+    _title: 'Hello user page'
+  requirements:
+    _permission: 'access content'
+    user: \d+
