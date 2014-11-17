@@ -11,5 +11,4 @@ services:
     class: Drupal\user\UserStorage
     factory_service: entity.manager
     factory_method: getStorage
-    arguments:
-      - 'user'
+    arguments: ['user']

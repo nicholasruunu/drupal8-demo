@@ -13,4 +13,14 @@ demo.hello.user:
     _title: 'Hello user page'
   requirements:
     _permission: 'access content'
-    user: \d+
+    userId: \d+
+
+demo.add.user:
+  path: '/add/{firstName}/{lastName}'
+  defaults:
+    _content: 'demo.controller:addUser'
+    _title: 'Added user'
+  requirements:
+    _permission: 'administer nodes'
+    firstName: \w+
+    lastName: \w+

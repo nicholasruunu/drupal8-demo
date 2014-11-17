@@ -50,4 +50,17 @@ class DemoController
             '#markup' => 'Hello ' . implode(', ', $userNames) . '! This is a demo page.',
         );
     }
+
+    /**
+     * Adds user to database
+     */
+    public function addUser($firstName, $lastName)
+    {
+        $name = new Name($firstName, $lastName);
+        $user = new User($name);
+
+        $this->userRepository->add($user);
+
+        return "Added $name to database";
+    }
 } 
