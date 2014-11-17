@@ -5,9 +5,9 @@ services:
 
   demo.user_repository:
     class: Drupal\demo\User\Repository\DrupalUserRepository
-    arguments: ['@user.entity.manager']
+    arguments: ['@user.entity.storage']
 
-  user.entity.manager:
+  user.entity.storage:
     class: Drupal\user\UserStorage
     factory_service: entity.manager
     factory_method: getStorage
